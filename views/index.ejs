@@ -1,0 +1,87 @@
+<% include partials/header %>
+
+<!-- script run when page is loaded  -->
+
+<!-- google map autocomplete -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOBevkDWetQuaXUUlRZFGgkSdYrlDUuhk&libraries=places">
+</script>
+
+<script>
+function initialize() {
+var input = document.getElementById('searchTextField');
+var autocomplete = new google.maps.places.Autocomplete(input);
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+<!-- get current geo-location  -->
+<button onclick="getLocation()">Try It</button>
+
+<p id="demo"></p>
+
+<script>
+window.onload = getLocation;
+
+var x = document.getElementById("demo");
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    var lat = document.getElementsByName("latitude");
+    lat[0].value = position.coords.latitude;
+    
+    var long = document.getElementsByName("longitude");
+    long[0].value = position.coords.longitude;
+
+    x.innerHTML = "Latitude: " + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude;
+    
+    var hid_btn = document.getElementById("nearby_btn");
+    hid_btn.setAttribute("type", "hidden");
+    
+}
+
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            x.innerHTML = "User denied the request for Geolocation."
+            var hid_btn = document.getElementById("nearby_btn");
+            hid_btn.setAttribute("value", "hidden");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            x.innerHTML = "Location information is unavailable."
+            break;
+    }
+}
+
+</script>
+
+<script>
+    function Clicked() {
+        var geo = document.getElementsByName("geo");
+        geo[0].value = '1';
+    }
+</script>
+
+<h1>Find Nearby</h1>
+
+<form id="search_form" action="/restaurants" method="GET">
+    <input type="text" name="restaurant_name" placeholder="name of the restaurant" value="panda express">
+    <input type="text" name="location" placeholder="location">
+    <br>Near to
+    <input type="hidden" name="latitude" placeholder="latitude" value="40.110441">
+    <input type="hidden" name="longitude" placeholder="longitude" value="-88.229064">
+    <input type="hidden" name="geo" value="">
+    <input id="searchTextField" type="text" placeholder="Champaign, IL">
+    <button type="submit">Search</button>
+    <button onclick="Clicked();" id="nearby_btn" type="submit">Search by Nearby</button>
+</form>
+
+<% include partials/footer %>

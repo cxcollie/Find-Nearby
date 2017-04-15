@@ -1,0 +1,12 @@
+<% include partials/header %>
+
+<h1>Restaurant Results</h1>
+
+<% restaurants["businesses"].forEach(function(restaurant) { %>
+      <li>
+          <%= restaurant["name"] %>
+      </li>
+<% }) %>
+
+
+<% include partials/footer %>
