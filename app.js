@@ -4,6 +4,7 @@ var express     = require("express"),
     request = require('request');
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 
 //requiring routes
