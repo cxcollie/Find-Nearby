@@ -8,6 +8,8 @@
 html {
     /* credit to uiGradients */
     height: 100%;
+    margin: 0;
+    padding: 0;
     background: #50C9C3;  /* fallback for old browsers */  /* Chrome 10-25, Safari 5.1-6 */
     background: -webkit-gradient(linear, 0 100%, 0 0, from(#96DEDA), to(#50C9C3));
     background: -webkit-linear-gradient(#96DEDA, #50C9C3);
@@ -17,6 +19,9 @@ html {
 }
 
 body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
     background-color: transparent;
 }
 
@@ -28,11 +33,22 @@ body {
 }
 
 #home_search h1 {
-    /*font-size: 10em;*/
     font-size: 9.0vh;
     color: #ffd3b5;
 }
 
-#search_form {
+#map {
+  height: 100%;
+  width: 100%
+}
 
+#map_half {
+    height: 50%;
+    width: 100%;
+}
+
+#result_list_display {
+    height: 50%;
+    width: 100%;
+    overflow: scroll;
 }

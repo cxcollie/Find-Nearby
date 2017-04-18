@@ -6,18 +6,20 @@ var express = require("express"),
 router.get("/", function(req, res){
     // get restaurant name
     var restaurant_name = req.query.restaurant_name;
+    var location_name = req.query.location_name;
+    
     var latitude = req.query.latitude;
     var longitude = req.query.longitude;
     var geo = req.query.geo;
-    console.log('lat', latitude);
-    console.log('long', longitude);
-    console.log('geo', geo);
     
     // construct yelp search url
-    var search_url = 'https://api.yelp.com/v3/businesses/search?term='
-        + restaurant_name + '&latitude='
-        + latitude + '&longitude='
-        + longitude;
+    var search_url = 'https://api.yelp.com/v3/businesses/search?';
+    if (restaurant_name) search_url += ('term=' + restaurant_name + '&');
+    if (geo == '1') {
+      search_url += ('latitude=' + latitude + '&longitude=' + longitude);
+    } else {
+      search_url += ('location=' + location_name);
+    }
 
     // post request to get auth token
     var formData = {

@@ -1,12 +1,50 @@
 <% include partials/header %>
 
-<h1>Restaurant Results</h1>
+<script>
 
-<% restaurants["businesses"].forEach(function(restaurant) { %>
+function initMap() {
+
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 3,
+    center: {lat: -28.024, lng: 140.887}
+  });
+
+
+  for (var i = 0; i < restaurants["businesses"].length; i++) {
+    var latLng = restaurants["businesses"][i]["coordinates"];
+    console.log(latLng);
+    var marker = new google.maps.Marker({
+      position: latLng,
+      map: map
+    });
+  }
+  
+  console.log("cool!");
+  <% restaurants["businesses"].forEach(function(restaurant) { %>
+        if (<% restaurant["name"] %>)
+          console.log("good!");
+    <% }) %>
+   
+
+</script>
+
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOBevkDWetQuaXUUlRZFGgkSdYrlDUuhk&callback=initMap">
+</script>
+
+<div id="result_list_display" >
+    <h1>Restaurant Results</h1>
+    
+    <% restaurants["businesses"].forEach(function(restaurant) { %>
       <li>
           <%= restaurant["name"] %>
       </li>
-<% }) %>
+    <% }) %>  
+</div>
+
+<div id="map_half">
+  <div id="map"></div>     
+</div>
 
 
 <% include partials/footer %>
