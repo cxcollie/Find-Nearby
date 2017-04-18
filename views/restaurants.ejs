@@ -8,24 +8,15 @@ function initMap() {
     zoom: 3,
     center: {lat: -28.024, lng: 140.887}
   });
-
-
-  for (var i = 0; i < restaurants["businesses"].length; i++) {
-    var latLng = restaurants["businesses"][i]["coordinates"];
-    console.log(latLng);
-    var marker = new google.maps.Marker({
-      position: latLng,
-      map: map
-    });
-  }
   
-  console.log("cool!");
+  console.log("great!");
   <% restaurants["businesses"].forEach(function(restaurant) { %>
-        if (<% restaurant["name"] %>)
-          console.log("good!");
-    <% }) %>
-   
+          console.log("<%= restaurant["name"] %>");
+  <% }) %> 
+}
 
+  
+  
 </script>
 
 <script async defer
@@ -41,6 +32,8 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOBevkDWetQuaXUUlRZFGgkSd
       </li>
     <% }) %>  
 </div>
+
+
 
 <div id="map_half">
   <div id="map"></div>     
