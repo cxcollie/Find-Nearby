@@ -29,7 +29,31 @@ router.get("/", function(req, res){
     };
 
     // send post request and collect token
-    var token = 'Bearer ';
+    var token = 'Bearer ' + 'ZQtegQ4s1mTSa_XOfPW2nEBFuGUhUgWnA_ENZbMU-f-GrYmtwSFl9V6PDOK6bmLQuf8vgAkul_uPTatZE8rnFgCETYQ9Iw7ega_CMMjpWYTUZWIeAb2n5jrWGGDVWHYx';
+  
+    // use token to communicate with Yelp
+    var options = {
+      url: search_url,
+      headers: {
+        'Authorization': token
+      }
+    };
+     
+    function callback(error, response, body) {
+      if (error) {
+        return console.error('get https failed:', error);
+      }
+      
+      if (!error && response.statusCode == 200) {
+        var info = JSON.parse(body);
+        res.render("restaurants", {restaurants: info});
+      }
+    }
+     
+    request(options, callback);
+    
+    // old method of getting token first
+    /*var token = "Bearer ";
     request.post({url:'https://api.yelp.com/oauth2/token', formData: formData}, function optionalCallback(err, httpResponse, body) {
         if (err) {
             return console.error('upload failed:', err);
@@ -62,7 +86,7 @@ router.get("/", function(req, res){
         }
          
         request(options, callback);
-    });
+    });*/
 });
 
 module.exports = router;

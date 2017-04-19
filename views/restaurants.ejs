@@ -1,43 +1,78 @@
 <% include partials/header %>
 
+<div id="result_list_display" >
+    <h1>Restaurant Results</h1>
+    
+    <% restaurants["businesses"].forEach(function(restaurant) { %>
+      <div class="single_restaur">
+          <%= restaurant["name"] %>
+      </div>
+    <% }) %>  
+</div>
+
+<script>
+      var selector = document.getElementsByClassName('single_restaur');
+console.log(selector);
+console.log(selector.length);
+      for(var i = 0; i < selector.length; i++) {
+          var index = selector[i] //get the nth-child number here
+          console.log(index);
+          if(index){
+  index.addEventListener("mouseover", func, false);
+}
+          
+      }
+
+function func() {  
+   var item = document.getElementById("button");
+   item.setAttribute("style", "background-color:blue;")
+}
+</script>
+
+<div id="button">change me! </div>
+
+<div id="map_half">
+  <div id="map"></div>     
+</div>
+
 <script>
 
 function initMap() {
+  var uluru = {
+          lat: <%= restaurants["businesses"][0]["coordinates"]["latitude"] %>,
+          lng: <%= restaurants["businesses"][0]["coordinates"]["longitude"] %>
+        };     
 
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 3,
-    center: {lat: -28.024, lng: 140.887}
+    zoom: 16,
+    center: uluru
   });
-  
-  console.log("great!");
-  <% restaurants["businesses"].forEach(function(restaurant) { %>
-          console.log("<%= restaurant["name"] %>");
+       
+    var marker = new google.maps.Marker({
+      position: uluru,
+      map: map
+    }); 
+    
+    <% restaurants["businesses"].forEach(function(restaurant) { %>
+        var latLng = {lat: <%= restaurant["coordinates"]["latitude"] %>,
+                      lng: <%= restaurant["coordinates"]["longitude"] %>
+        };
+        
+        var marker = new google.maps.Marker({
+            position: latLng,
+            map: map
+        });
+        
   <% }) %> 
-}
+      
+} // end of initMap
 
-  
   
 </script>
 
 <script async defer
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOBevkDWetQuaXUUlRZFGgkSdYrlDUuhk&callback=initMap">
 </script>
-
-<div id="result_list_display" >
-    <h1>Restaurant Results</h1>
-    
-    <% restaurants["businesses"].forEach(function(restaurant) { %>
-      <li>
-          <%= restaurant["name"] %>
-      </li>
-    <% }) %>  
-</div>
-
-
-
-<div id="map_half">
-  <div id="map"></div>     
-</div>
 
 
 <% include partials/footer %>
