@@ -43,12 +43,46 @@ body {
 }
 
 #map_half {
-    height: 50%;
-    width: 100%;
+    float: right;
+    height: 100%;
+    width: 50%;
 }
 
 #result_list_display {
-    height: 50%;
-    width: 100%;
+    float: left;
+    height: 100%;
+    width: 50%;
     overflow: scroll;
 }
+
+.list_container {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.single_restaur {
+    height: 20em;
+    float: left;
+    width: 50%;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+.restaur_img_block {
+    height: 65%;
+    overflow: hidden;
+}
+
+.single_restaur img {
+    min-height: 100%;
+    width: 100%;
+}
+
+.single_restaur .restaur_name {
+    font-size: 1.5em;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+    overflow: hidden;
+}
+

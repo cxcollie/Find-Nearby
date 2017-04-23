@@ -1,73 +1,79 @@
 <% include partials/header %>
 
 <div id="result_list_display" >
+  <div class="list_container">
     <h1>Restaurant Results</h1>
     
     <% restaurants["businesses"].forEach(function(restaurant) { %>
       <div class="single_restaur">
-          <%= restaurant["name"] %>
+        <div class="restaur_img_block">
+          <img src="<%= restaurant["image_url"] %>">
+        </div>
+        
+        <div class="restaur_name"><%= restaurant["name"] %></div>
+        <div class="restaur_stars"><%= restaurant["rating"] %></div>
       </div>
-    <% }) %>  
+      
+      <div></div>
+    <% }) %> 
+  </div>
 </div>
-
-<script>
-      var selector = document.getElementsByClassName('single_restaur');
-console.log(selector);
-console.log(selector.length);
-      for(var i = 0; i < selector.length; i++) {
-          var index = selector[i] //get the nth-child number here
-          console.log(index);
-          if(index){
-  index.addEventListener("mouseover", func, false);
-}
-          
-      }
-
-function func() {  
-   var item = document.getElementById("button");
-   item.setAttribute("style", "background-color:blue;")
-}
-</script>
-
-<div id="button">change me! </div>
 
 <div id="map_half">
   <div id="map"></div>     
 </div>
 
 <script>
+var markers = [];
 
 function initMap() {
   var uluru = {
           lat: <%= restaurants["businesses"][0]["coordinates"]["latitude"] %>,
           lng: <%= restaurants["businesses"][0]["coordinates"]["longitude"] %>
-        };     
+  };     
 
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 16,
+    zoom: 15,
     center: uluru
   });
-       
-    var marker = new google.maps.Marker({
-      position: uluru,
-      map: map
-    }); 
+
+  <% restaurants["businesses"].forEach(function(restaurant) { %>
+    var latLng = {lat: <%= restaurant["coordinates"]["latitude"] %>,
+                  lng: <%= restaurant["coordinates"]["longitude"] %>
+    };
     
-    <% restaurants["businesses"].forEach(function(restaurant) { %>
-        var latLng = {lat: <%= restaurant["coordinates"]["latitude"] %>,
-                      lng: <%= restaurant["coordinates"]["longitude"] %>
-        };
-        
-        var marker = new google.maps.Marker({
-            position: latLng,
-            map: map
-        });
+    var marker = new google.maps.Marker({
+        position: latLng,
+        map: map
+    });
+    
+    markers.push(marker);
         
   <% }) %> 
+  
+  var selector = document.getElementsByClassName('single_restaur');
+  for(var i = 0; i < selector.length; i++) {
+    var index = selector[i] //get the nth-child number here
+    if(index){
+      //index.addEventListener("mouseover", func.bind(i));
+      //index.addEventListener("mouseout", func2.bind(i));
+    }
+  }
       
 } // end of initMap
 
-  
+
+function func() { 
+  var i = this;
+   markers[i].setAnimation(google.maps.Animation.BOUNCE);
+}
+
+function func2() { 
+  var i = this;
+  markers[i].setAnimation(null);
+}
+
+
 </script>
 
 <script async defer
