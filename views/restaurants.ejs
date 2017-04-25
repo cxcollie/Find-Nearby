@@ -10,8 +10,27 @@
           <img src="<%= restaurant["image_url"] %>">
         </div>
         
-        <div class="restaur_name"><%= restaurant["name"] %></div>
-        <div class="restaur_stars"><%= restaurant["rating"] %></div>
+        <div class="restaur_name"><a href="<%= restaurant["url"] %>"><%= restaurant["name"] %></a></div>
+        <div style="overflow: hidden; padding-bottom: 0.4em">
+          <% var catCnt = 0 %>
+          <% restaurant["categories"].forEach(function(cate) { %>
+            <% catCnt++; if (catCnt <= 3) { %>
+            <span class="label label-primary"><%= cate["alias"] %></span>
+            <% } %>
+          <% }) %>
+        </div>
+        
+        <div class="restaur_stars">
+          <% for (var i = 0; i < 5; i++) { %>
+            <% if (restaurant["rating"] <= i) { %>
+              <i class="fa fa-star-o" aria-hidden="true"></i>
+            <% } else if (restaurant["rating"] == i + 0.5) { %>
+              <i class="fa fa-star-half-o" aria-hidden="true"></i>
+            <% } else { %>
+              <i class="fa fa-star" aria-hidden="true"></i>
+            <% } %>
+          <% } %>
+        </div>
       </div>
       
       <div></div>
