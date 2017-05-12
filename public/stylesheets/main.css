@@ -25,6 +25,14 @@ body {
     background-color: transparent;
 }
 
+#nav_header {
+  height: 8%;
+}
+
+#list_and_map {
+  height: 92%;
+}
+
 #home_search {
     margin-left: 3em;
     /*margin-top: 50%;*/
@@ -53,149 +61,30 @@ body {
     height: 100%;
     width: 50%;
     overflow: scroll;
-  }
+}
   
-@media (min-width: 800px) {
-  #result_list_display {
-    float: left;
-    height: 100%;
-    width: 50%;
-    overflow: scroll;
-  }
-}
-
-/* ----------- iPhone 4 and 4S ----------- */
-
-/* Portrait */
-@media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 480px)
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: portrait) {
-}
-
-/* Landscape */
-@media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 480px)
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: landscape) {
-
-}
-
-/* ----------- iPhone 5 and 5S ----------- */
-
-/* Portrait and Landscape */
-@media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 568px)
-  and (-webkit-min-device-pixel-ratio: 2) {
-  #result_list_display {
-    float: left;
-    height: 100%;
-    width: 100%;
-    overflow: scroll;
-  }
-}
-
-/* Portrait */
-@media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 568px)
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: portrait) {
-}
-
-/* Landscape */
-@media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 568px)
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: landscape) {
-
-}
-
-/* ----------- iPhone 6 ----------- */
-
-/* Portrait and Landscape */
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 667px) 
-  and (-webkit-min-device-pixel-ratio: 2) { 
-
-}
-
-/* Portrait */
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 667px) 
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: portrait) { 
-
-}
-
-/* Landscape */
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 667px) 
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: landscape) { 
-
-}
-
-/* ----------- iPhone 6+ ----------- */
-
-/* Portrait and Landscape */
-@media only screen 
-  and (min-device-width: 414px) 
-  and (max-device-width: 736px) 
-  and (-webkit-min-device-pixel-ratio: 3) { 
-
-}
-
-/* Portrait */
-@media only screen 
-  and (min-device-width: 414px) 
-  and (max-device-width: 736px) 
-  and (-webkit-min-device-pixel-ratio: 3)
-  and (orientation: portrait) { 
-
-}
-
-/* Landscape */
-@media only screen 
-  and (min-device-width: 414px) 
-  and (max-device-width: 736px) 
-  and (-webkit-min-device-pixel-ratio: 3)
-  and (orientation: landscape) { 
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.list_container {
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
 .single_restaur {
     height: 20em;
     float: left;
     width: 50%;
     padding-left: 2%;
     padding-right: 2%;
+}
+
+.navbar-default {
+  height: 3.5em;
+  font-size: 1.1em;
+  margin-bottom: 0;
+}
+
+#search_form {
+  margin-top: 8px;
+  margin-bottom: 10px;
+}
+
+.list_container {
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .restaur_img_block {
@@ -218,4 +107,74 @@ body {
 
 .single_restaur .label-primary {
     font-size: 85%;
+}
+
+@media only screen 
+  and (max-device-width: 800px)
+  and (orientation: portrait) {
+    
+    #nav_header {
+      height: 15%;
+    }
+    
+    #list_and_map {
+      height: 85%;
+    }
+    
+    #search_form {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    
+    #map_half {
+      visibility: hidden;
+    }
+    
+    #result_list_display {
+    float: left;
+    height: 100%;
+    width: 100%;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    }
+  
+    .single_restaur {
+      height: 50em;
+      float: left;
+      width: 100%;
+      padding-left: 2%;
+      padding-right: 2%;
+    }
+    
+}
+
+@media only screen 
+  and (max-device-width: 800px)
+  and (orientation: landscape) {
+    
+    #map_half {
+      visibility: hidden;
+    }
+    
+    #result_list_display {
+    float: left;
+    height: 100%;
+    width: 100%;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    }
+  
+    .single_restaur {
+      height: 50em;
+      float: left;
+      width: 50%;
+      padding-left: 2%;
+      padding-right: 2%;
+    }
+    
+    .navbar {
+      height: 3em;
+      font-size: 2em;
+    }
+    
 }

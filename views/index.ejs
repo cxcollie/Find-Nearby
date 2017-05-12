@@ -1,4 +1,18 @@
-<% include partials/header %>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>NearBy</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/stylesheets/main.css">
+        <script type="text/javascript">
+        function codeAddress() {
+            // finish later
+        }
+        window.onload = codeAddress;
+        </script>
+    </head>
+    <body>
 
 <!-- google map autocomplete -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOBevkDWetQuaXUUlRZFGgkSdYrlDUuhk&libraries=places">
@@ -70,7 +84,6 @@ function showError(error) {
       <button type="submit" class="btn btn-default">Search</button>
       <button onclick="Clicked();" id="nearby_btn" type="submit" class="btn btn-default">Or just Nearby!</button>
     </form>
-</form>
 
 </div>
 

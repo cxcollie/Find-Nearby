@@ -1,5 +1,8 @@
 <% include partials/header %>
 
+<% if (restaurants["businesses"].length > 0) { %>
+<div id="list_and_map">
+
 <div id="result_list_display" >
   <div class="list_container">
     <h1>Restaurant Results</h1>
@@ -42,11 +45,20 @@
   <div id="map"></div>     
 </div>
 
+</div>
+
+<% } %>
+
 <script>
 var markers = [];
 
 function initMap() {
+  initAutoComplete();
+  
+  <%if (restaurants["total"] > 0) { %>
+    
   var uluru = {
+          
           lat: <%= restaurants["businesses"][0]["coordinates"]["latitude"] %>,
           lng: <%= restaurants["businesses"][0]["coordinates"]["longitude"] %>
   };     
@@ -78,6 +90,10 @@ function initMap() {
       //index.addEventListener("mouseout", func2.bind(i));
     }
   }
+  
+  <% } else { %>
+    
+  <% } %>
       
 } // end of initMap
 
@@ -96,8 +112,7 @@ function func2() {
 </script>
 
 <script async defer
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOBevkDWetQuaXUUlRZFGgkSdYrlDUuhk&callback=initMap">
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOBevkDWetQuaXUUlRZFGgkSdYrlDUuhk&libraries=places&callback=initMap">
 </script>
-
 
 <% include partials/footer %>

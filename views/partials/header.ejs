@@ -5,25 +5,72 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="/stylesheets/main.css">
+        
         <script type="text/javascript">
-        function codeAddress() {
-            // finish later
+            function initAutoComplete() {
+                    var input = document.getElementById('searchTextField');
+                    var autocomplete = new google.maps.places.Autocomplete(input);
+            }
+        
+        window.onload = getLocation;
+        
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else { 
+                document.getElementById("nearby_btn").style.display="none";
+            }
         }
-        window.onload = codeAddress;
+        
+        function showPosition(position) {
+            var lat = document.getElementsByName("latitude");
+            lat[0].value = position.coords.latitude;
+            
+            var long = document.getElementsByName("longitude");
+            long[0].value = position.coords.longitude;
+            
+            // set geo tag
+            var geo = document.getElementsByName("geo");
+            if (geo[0].value == -1) geo[0].value = 0;
+        }
+        
+        function showError(error) {
+            document.getElementById("nearby_btn").style.display="none";
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    //x.innerHTML = "User denied the request for Geolocation."
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    //x.innerHTML = "Location information is unavailable."
+                    break;
+            }
+        }
+        
+        function Clicked() {
+        var geo = document.getElementsByName("geo");
+        if (geo[0].value == '0') geo[0].value = '1';
+    }
         </script>
+        
+        
     </head>
     <body>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="/">NearBy</a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/">Login</a></li>
-                    <li><a href="/">Sign Up</a></li>
-                    <li><a href="/">Logout</a></li>
-                </ul>
-            </div>
+        <div id="nav_header">
+            
+        <nav class="navbar navbar-default">
+            <form id="search_form input-group-lg" action="/restaurants" method="GET" class="form-inline">
+                <input type="hidden" name="latitude" placeholder="latitude" value="40.110441">
+                <input type="hidden" name="longitude" placeholder="longitude" value="-88.229064">
+                <input type="hidden" name="geo" value="-1">
+                
+                    Find             
+                    <input type="text" class="form-control" name="restaurant_name" placeholder=" restaurant"> 
+                    Near
+                    <input style="min-width: 25em;" id="searchTextField" name="location_name" type="text" class="form-control" placeholder=" i.e. Champaign, IL">
+                <button type="submit" class="btn btn-default">Search</button>
+                <button onclick="Clicked();" id="nearby_btn" type="submit" class="btn btn-default">Or just Nearby!</button>
+            </form>
+            
+        </nav>
+        
         </div>
-    </nav>
