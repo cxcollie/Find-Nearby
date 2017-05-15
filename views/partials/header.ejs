@@ -47,9 +47,31 @@
         }
         
         function Clicked() {
-        var geo = document.getElementsByName("geo");
-        if (geo[0].value == '0') geo[0].value = '1';
-    }
+            var geo = document.getElementsByName("geo");
+            if (geo[0].value == '0') geo[0].value = '1';
+        }
+        
+        function shuffle_list() {
+            var list_map = document.getElementById("list_and_map");
+            list_map.style.visibility="hidden";
+            
+            var show_all = document.getElementById("show_all");
+            show_all.style.display="inline";
+            
+            var rnd_find = document.getElementById("random_find");
+            rnd_find.style.display="none";
+        }
+        
+        function shuffle_back() {
+            var rnd_find = document.getElementById("list_and_map");
+            rnd_find.style.visibility="visible";
+            
+            var rnd_find = document.getElementById("random_find");
+            rnd_find.style.display="inline";
+            
+            var show_all = document.getElementById("show_all");
+            show_all.style.display="none";
+        }
         </script>
         
         
@@ -63,13 +85,23 @@
                 <input type="hidden" name="longitude" placeholder="longitude" value="-88.229064">
                 <input type="hidden" name="geo" value="-1">
                 
-                    Find             
-                    <input type="text" class="form-control" name="restaurant_name" placeholder=" restaurant"> 
-                    Near
+                    <span>
+                        Find             
+                    <input type="text" class="form-control" name="restaurant_name" placeholder=" restaurant">
+                    </span> 
+                    
+                    <span>
+                        Near
                     <input style="min-width: 25em;" id="searchTextField" name="location_name" type="text" class="form-control" placeholder=" i.e. Champaign, IL">
+                    </span>
+                    
                 <button type="submit" class="btn btn-default">Search</button>
-                <button onclick="Clicked();" id="nearby_btn" type="submit" class="btn btn-default">Or just Nearby!</button>
+                <button onclick="Clicked();" id="nearby_btn" type="submit" class="btn btn-default">Nearby</button>
+                <button onclick="shuffle_list();" id="random_find" type="button" class="btn btn-default">Random Find!</button>
+                <button style="display: none;" onclick="shuffle_back();" id="show_all" type="button" class="btn btn-default">Show All!</button>
             </form>
+            
+            
             
         </nav>
         

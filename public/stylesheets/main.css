@@ -78,8 +78,7 @@ body {
 }
 
 #search_form {
-  margin-top: 8px;
-  margin-bottom: 10px;
+  float: left;
 }
 
 .list_container {
@@ -119,11 +118,6 @@ body {
     
     #list_and_map {
       height: 85%;
-    }
-    
-    #search_form {
-      margin-top: 10px;
-      margin-bottom: 10px;
     }
     
     #map_half {
