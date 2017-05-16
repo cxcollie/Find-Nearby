@@ -18,8 +18,18 @@
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition, showError);
             } else { 
-                document.getElementById("nearby_btn").style.display="none";
+                //document.getElementById("nearby_btn").style.display="none";
             }
+            
+            <% if (rest_name) { %>
+                var form_rest_name = document.getElementsByName("restaurant_name");
+                form_rest_name[0].value = "<%= rest_name %>";
+            <% } %>
+            
+            <% if (loca_name) { %>
+                var form_loca_name = document.getElementById("searchTextField");
+                form_loca_name.value = "<%= loca_name %>";
+            <% } %>
         }
         
         function showPosition(position) {
@@ -32,6 +42,8 @@
             // set geo tag
             var geo = document.getElementsByName("geo");
             if (geo[0].value == -1) geo[0].value = 0;
+            
+            document.getElementById("nearby_btn").style.display="inline";
         }
         
         function showError(error) {
@@ -51,9 +63,35 @@
             if (geo[0].value == '0') geo[0].value = '1';
         }
         
+        function get_shuffle_arr(list_length) {
+            var idx_arr = [];
+            for (var i = 0; i < list_length; i++) {
+              idx_arr.push(i);
+            }
+            //console.log(idx_arr);
+            
+            var j, x, i;
+            for (i = list_length; i; i--) {
+                j = Math.floor(Math.random() * i);
+                x = idx_arr[i - 1];
+                idx_arr[i - 1] = idx_arr[j];
+                idx_arr[j] = x;
+            }
+            //console.log(idx_arr);
+            
+            return idx_arr;
+        }
+        
+        var rnd_idx_list;
+        
         function shuffle_list() {
-            var list_map = document.getElementById("list_and_map");
-            list_map.style.visibility="hidden";
+            rnd_idx_list = get_shuffle_arr(20);
+            
+            var all_list_map = document.getElementById("result_list_display");
+            all_list_map.style.display="none";
+            
+            var part_list_map = document.getElementById("result_part_display");
+            part_list_map.style.display="inline";
             
             var show_all = document.getElementById("show_all");
             show_all.style.display="inline";
@@ -63,8 +101,11 @@
         }
         
         function shuffle_back() {
-            var rnd_find = document.getElementById("list_and_map");
-            rnd_find.style.visibility="visible";
+            var all_list_map = document.getElementById("result_list_display");
+            all_list_map.style.display="inline";
+            
+            var part_list_map = document.getElementById("result_part_display");
+            part_list_map.style.display="none";
             
             var rnd_find = document.getElementById("random_find");
             rnd_find.style.display="inline";
@@ -72,6 +113,8 @@
             var show_all = document.getElementById("show_all");
             show_all.style.display="none";
         }
+
+
         </script>
         
         
@@ -80,7 +123,7 @@
         <div id="nav_header">
             
         <nav class="navbar navbar-default">
-            <form id="search_form input-group-lg" action="/restaurants" method="GET" class="form-inline">
+            <form id="search_form" action="/restaurants" method="GET" class="form-inline input-group-lg">
                 <input type="hidden" name="latitude" placeholder="latitude" value="40.110441">
                 <input type="hidden" name="longitude" placeholder="longitude" value="-88.229064">
                 <input type="hidden" name="geo" value="-1">
@@ -96,13 +139,10 @@
                     </span>
                     
                 <button type="submit" class="btn btn-default">Search</button>
-                <button onclick="Clicked();" id="nearby_btn" type="submit" class="btn btn-default">Nearby</button>
+                <button style="display: none;" onclick="Clicked();" id="nearby_btn" type="submit" class="btn btn-default">Nearby</button>
                 <button onclick="shuffle_list();" id="random_find" type="button" class="btn btn-default">Random Find!</button>
                 <button style="display: none;" onclick="shuffle_back();" id="show_all" type="button" class="btn btn-default">Show All!</button>
             </form>
-            
-            
-            
         </nav>
         
         </div>

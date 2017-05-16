@@ -46,7 +46,9 @@ router.get("/", function(req, res){
       
       if (!error && response.statusCode == 200) {
         var info = JSON.parse(body);
-        res.render("restaurants", {restaurants: info});
+        res.render("restaurants", {restaurants: info, 
+        rest_name: restaurant_name,
+        loca_name: location_name});
       }
     }
      

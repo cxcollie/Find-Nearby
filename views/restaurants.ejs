@@ -3,6 +3,7 @@
 <% if (restaurants["businesses"].length > 0) { %>
 <div id="list_and_map">
 
+<!-- display of whole list -->
 <div id="result_list_display" >
   <div class="list_container">
     <h1>Restaurant Results</h1>
@@ -39,6 +40,90 @@
       <div></div>
     <% }) %> 
   </div>
+</div>
+
+<!-- display of random restaurant -->
+<script>
+  var curr_idx = 0;
+  //var clientGameState2 = "<%= restaurants["businesses"][0]["name"] %>";    
+        
+  function next_part() {
+      curr_idx++;
+      if (curr_idx == 20) curr_idx = 0;
+      
+      var rnd_find = document.getElementById("curr_part");
+      rnd_find.innerHTML = rnd_idx_list[curr_idx];
+  }
+  
+  function prev_part() {
+      curr_idx--;
+      if (curr_idx < 0) curr_idx = 19;
+      
+      var rnd_find = document.getElementById("curr_part");
+      rnd_find.innerHTML = rnd_idx_list[curr_idx];
+  }
+        
+  function get_shuffle_arr2(list_length) {
+      var idx_arr = [];
+      for (var i = 0; i < list_length; i++) {
+        idx_arr.push(i);
+      }
+      console.log(idx_arr);
+      
+      var j, x, i;
+      for (i = list_length; i; i--) {
+          j = Math.floor(Math.random() * i);
+          x = idx_arr[i - 1];
+          idx_arr[i - 1] = idx_arr[j];
+          idx_arr[j] = x;
+      }
+      console.log(idx_arr);
+      
+      return idx_arr;
+  }
+</script>
+
+<div style="display: none;" id="result_part_display" >
+  <div id="curr_part">Restaurant Results</div>
+  <div>
+    
+     <% restaurants["businesses"].forEach(function(restaurant) { %>
+      <div class="single_restaur part_single_restaur">
+        <div class="restaur_img_block">
+          <img src="<%= restaurant["image_url"] %>">
+        </div>
+        
+        <div class="restaur_name"><a href="<%= restaurant["url"] %>"><%= restaurant["name"] %></a></div>
+        <div style="overflow: hidden; padding-bottom: 0.4em">
+          <% var catCnt = 0 %>
+          <% restaurant["categories"].forEach(function(cate) { %>
+            <% catCnt++; if (catCnt <= 3) { %>
+            <span class="label label-primary"><%= cate["alias"] %></span>
+            <% } %>
+          <% }) %>
+        </div>
+        
+        <div class="restaur_stars">
+          <% for (var i = 0; i < 5; i++) { %>
+            <% if (restaurant["rating"] <= i) { %>
+              <i class="fa fa-star-o" aria-hidden="true"></i>
+            <% } else if (restaurant["rating"] == i + 0.5) { %>
+              <i class="fa fa-star-half-o" aria-hidden="true"></i>
+            <% } else { %>
+              <i class="fa fa-star" aria-hidden="true"></i>
+            <% } %>
+          <% } %>
+        </div>
+      </div>
+      
+      <div></div>
+    <% }) %> 
+  </div>
+  
+  
+  
+  <button onclick="prev_part()">Prev</button>
+  <button onclick="next_part()">Next</button>
 </div>
 
 <div id="map_half">
