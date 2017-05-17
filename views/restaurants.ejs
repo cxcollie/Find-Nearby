@@ -44,23 +44,24 @@
 
 <!-- display of random restaurant -->
 <script>
-  var curr_idx = 0;
-  //var clientGameState2 = "<%= restaurants["businesses"][0]["name"] %>";    
+  //var curr_idx = 0;
         
   function next_part() {
+      restaurant_parts[rnd_idx_list[curr_idx]].style.display="none";
+    
       curr_idx++;
-      if (curr_idx == 20) curr_idx = 0;
+      if (curr_idx == restaurant_parts.length) curr_idx = 0;
       
-      var rnd_find = document.getElementById("curr_part");
-      rnd_find.innerHTML = rnd_idx_list[curr_idx];
+      restaurant_parts[rnd_idx_list[curr_idx]].style.display="inline";
   }
   
   function prev_part() {
+      restaurant_parts[rnd_idx_list[curr_idx]].style.display="none";
+    
       curr_idx--;
-      if (curr_idx < 0) curr_idx = 19;
+      if (curr_idx < 0) curr_idx = restaurant_parts.length - 1;
       
-      var rnd_find = document.getElementById("curr_part");
-      rnd_find.innerHTML = rnd_idx_list[curr_idx];
+      restaurant_parts[rnd_idx_list[curr_idx]].style.display="inline";
   }
         
   function get_shuffle_arr2(list_length) {
@@ -84,17 +85,24 @@
 </script>
 
 <div style="display: none;" id="result_part_display" >
-  <div id="curr_part">Restaurant Results</div>
+  <div id="part_display_header">
+    <span id="part_header_prev" style="float: left" onclick="prev_part()"><i class="fa fa-chevron-left" aria-hidden="true"></i> Prev</span>
+    <span id="part_header_tag"> How about this? </span>
+    <span id="part_header_next" style="float: right" onclick="next_part()">Next <i class="fa fa-chevron-right" aria-hidden="true"></i></span>
+  </div>
+  
+  
   <div>
-    
      <% restaurants["businesses"].forEach(function(restaurant) { %>
-      <div class="single_restaur part_single_restaur">
-        <div class="restaur_img_block">
-          <img src="<%= restaurant["image_url"] %>">
+      <div style="display: none;" class="part_single_restaur">
+        <div class="part_restaur_img_block2">
+          <img class="part_restaur_img_block" src="<%= restaurant["image_url"] %>">
         </div>
         
-        <div class="restaur_name"><a href="<%= restaurant["url"] %>"><%= restaurant["name"] %></a></div>
-        <div style="overflow: hidden; padding-bottom: 0.4em">
+        <div >
+        <div class="part_info part_restaur_name"><a href="<%= restaurant["url"] %>"><%= restaurant["name"] %></a></div>
+        
+        <div class="part_info" style="overflow: hidden; padding-bottom: 0.4em">
           <% var catCnt = 0 %>
           <% restaurant["categories"].forEach(function(cate) { %>
             <% catCnt++; if (catCnt <= 3) { %>
@@ -103,7 +111,13 @@
           <% }) %>
         </div>
         
-        <div class="restaur_stars">
+        <div class="restaur_stars part_info">
+          <% if (restaurant["is_closed"]) { %>
+            CLOSED
+          <% } else { %>
+            OPEN
+          <% } %>
+          
           <% for (var i = 0; i < 5; i++) { %>
             <% if (restaurant["rating"] <= i) { %>
               <i class="fa fa-star-o" aria-hidden="true"></i>
@@ -114,16 +128,19 @@
             <% } %>
           <% } %>
         </div>
+        
+        <div class="part_info">Price: <%= restaurant["price"] %></div>
+        <div class="part_info"><i class="fa fa-map-marker" aria-hidden="true"></i> 
+          <%= restaurant["location"]["display_address"] %></div>
+        <div class="part_info"><i class="fa fa-phone" aria-hidden="true"></i> 
+          <%= restaurant["display_phone"] %></div>
+        </div>
       </div>
       
       <div></div>
     <% }) %> 
   </div>
   
-  
-  
-  <button onclick="prev_part()">Prev</button>
-  <button onclick="next_part()">Next</button>
 </div>
 
 <div id="map_half">

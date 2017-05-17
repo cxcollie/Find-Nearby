@@ -15,6 +15,8 @@
         window.onload = getLocation;
         
         function getLocation() {
+            shuffle_list();
+            
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition, showError);
             } else { 
@@ -83,9 +85,14 @@
         }
         
         var rnd_idx_list;
+        var curr_idx;
+        var restaurant_parts;
         
         function shuffle_list() {
-            rnd_idx_list = get_shuffle_arr(20);
+            restaurant_parts = document.getElementsByClassName("part_single_restaur");
+            rnd_idx_list = get_shuffle_arr(restaurant_parts.length);
+            curr_idx = 0;
+            restaurant_parts[rnd_idx_list[curr_idx]].style.display="inline";
             
             var all_list_map = document.getElementById("result_list_display");
             all_list_map.style.display="none";

@@ -69,6 +69,11 @@ body {
     width: 50%;
     overflow: scroll;
 }
+
+#part_display_header {
+    height: 5%;
+    text-align: center;
+}
   
 .single_restaur {
     height: 20em;
@@ -78,14 +83,18 @@ body {
     padding-right: 2%;
 }
 
+.part_single_restaur {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 5%;
+    float: left;
+}
+
 .navbar-default {
   height: 3.5em;
   font-size: 1.1em;
   margin-bottom: 0;
-}
-
-#search_form {
-  
 }
 
 .list_container {
@@ -98,13 +107,56 @@ body {
     overflow: hidden;
 }
 
+.part_restaur_img_block {
+    width: 80%;
+    height: auto;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+#part_header_tag {
+  font-size: 2.5em;
+}
+
+#part_header_prev {
+  font-size: 2em;
+}
+
+#part_header_next {
+  font-size: 2em;
+}
+
+#part_header_prev:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#part_header_next:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.part_info {
+  text-align: center;
+  font-size: 1.2em;
+}
+
 .single_restaur img {
     min-height: 100%;
     width: 100%;
 }
 
 .single_restaur .restaur_name {
+    text-align: center;
     font-size: 1.5em;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+    overflow: hidden;
+}
+
+.part_single_restaur .part_restaur_name {
+    font-size: 2em;
     width: 100%;
     text-overflow: ellipsis;
     white-space: nowrap; 
