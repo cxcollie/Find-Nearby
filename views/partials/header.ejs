@@ -15,7 +15,7 @@
         window.onload = getLocation;
         
         function getLocation() {
-            shuffle_list();
+            //shuffle_list();
             
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition, showError);
@@ -135,12 +135,12 @@
                 <input type="hidden" name="longitude" placeholder="longitude" value="-88.229064">
                 <input type="hidden" name="geo" value="-1">
                 
-                    <span>
+                    <span class="search_form_line">
                         Find             
                     <input type="text" class="form-control" name="restaurant_name" placeholder=" restaurant">
                     </span> 
                     
-                    <span>
+                    <span class="search_form_line">
                         Near
                     <input style="min-width: 25em;" id="searchTextField" name="location_name" type="text" class="form-control" placeholder=" i.e. Champaign, IL">
                     </span>

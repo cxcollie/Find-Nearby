@@ -172,15 +172,20 @@ body {
   and (orientation: portrait) {
     
     #nav_header {
-      height: 15%;
+      height: 5%;
+    }
+    
+    #nav_header .search_form_line {
+      width: 100%;
+      background-color: yellow;
     }
     
     #list_and_map {
-      height: 85%;
+      height: 95%;
     }
     
     #map_half {
-      visibility: hidden;
+      display: none;
     }
     
     #result_list_display {
@@ -189,6 +194,16 @@ body {
     width: 100%;
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
+    font-size: 5em;
+    }
+    
+    #result_part_display {
+    float: left;
+    height: 100%;
+    width: 100%;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    font-size: 1.5em;
     }
   
     .single_restaur {
