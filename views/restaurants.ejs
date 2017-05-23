@@ -6,7 +6,7 @@
 <!-- display of whole list -->
 <div id="result_list_display" >
   <div class="list_container">
-    <h1>Restaurant Results</h1>
+    <h1 style="font-size: 2em; margin-top: 0;">Restaurant Results</h1>
     
     <% restaurants["businesses"].forEach(function(restaurant) { %>
       <div class="single_restaur">
@@ -41,48 +41,6 @@
     <% }) %> 
   </div>
 </div>
-
-<!-- display of random restaurant -->
-<script>
-  //var curr_idx = 0;
-        
-  function next_part() {
-      restaurant_parts[rnd_idx_list[curr_idx]].style.display="none";
-    
-      curr_idx++;
-      if (curr_idx == restaurant_parts.length) curr_idx = 0;
-      
-      restaurant_parts[rnd_idx_list[curr_idx]].style.display="inline";
-  }
-  
-  function prev_part() {
-      restaurant_parts[rnd_idx_list[curr_idx]].style.display="none";
-    
-      curr_idx--;
-      if (curr_idx < 0) curr_idx = restaurant_parts.length - 1;
-      
-      restaurant_parts[rnd_idx_list[curr_idx]].style.display="inline";
-  }
-        
-  function get_shuffle_arr2(list_length) {
-      var idx_arr = [];
-      for (var i = 0; i < list_length; i++) {
-        idx_arr.push(i);
-      }
-      console.log(idx_arr);
-      
-      var j, x, i;
-      for (i = list_length; i; i--) {
-          j = Math.floor(Math.random() * i);
-          x = idx_arr[i - 1];
-          idx_arr[i - 1] = idx_arr[j];
-          idx_arr[j] = x;
-      }
-      console.log(idx_arr);
-      
-      return idx_arr;
-  }
-</script>
 
 <div style="display: none;" id="result_part_display" >
   <div id="part_display_header">
@@ -152,64 +110,88 @@
 <% } %>
 
 <script>
-var markers = [];
+  var markers = [];
 
-function initMap() {
-  initAutoComplete();
+  function initMap() {
+    initAutoComplete();
+    
+    <%if (restaurants["total"] > 0) { %>
+      
+    var uluru = {
+            
+            lat: <%= restaurants["businesses"][0]["coordinates"]["latitude"] %>,
+            lng: <%= restaurants["businesses"][0]["coordinates"]["longitude"] %>
+    };     
   
-  <%if (restaurants["total"] > 0) { %>
-    
-  var uluru = {
-          
-          lat: <%= restaurants["businesses"][0]["coordinates"]["latitude"] %>,
-          lng: <%= restaurants["businesses"][0]["coordinates"]["longitude"] %>
-  };     
-
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 15,
-    center: uluru
-  });
-
-  <% restaurants["businesses"].forEach(function(restaurant) { %>
-    var latLng = {lat: <%= restaurant["coordinates"]["latitude"] %>,
-                  lng: <%= restaurant["coordinates"]["longitude"] %>
-    };
-    
-    var marker = new google.maps.Marker({
-        position: latLng,
-        map: map
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 15,
+      center: uluru
     });
-    
-    markers.push(marker);
-        
-  <% }) %> 
   
-  var selector = document.getElementsByClassName('single_restaur');
-  for(var i = 0; i < selector.length; i++) {
-    var index = selector[i] //get the nth-child number here
-    if(index){
-      //index.addEventListener("mouseover", func.bind(i));
-      //index.addEventListener("mouseout", func2.bind(i));
+    <% restaurants["businesses"].forEach(function(restaurant) { %>
+      var latLng = {lat: <%= restaurant["coordinates"]["latitude"] %>,
+                    lng: <%= restaurant["coordinates"]["longitude"] %>
+      };
+      
+      var marker = new google.maps.Marker({
+          position: latLng,
+          map: map,
+          animation: google.maps.Animation.DROP
+      });
+      
+      markers.push(marker);
+          
+    <% }) %> 
+    
+    var selector = document.getElementsByClassName('single_restaur');
+    for(var i = 0; i < selector.length; i++) {
+      var index = selector[i] //get the nth-child number here
+      if(index){
+        index.addEventListener("mouseenter", marker_animate.bind(i));
+      }
     }
+    
+    <% } else { %>
+      
+    <% } %>
+        
+  } // end of initMap
+  
+  var focused_marker = 0;
+  
+  function marker_animate() { 
+    markers[focused_marker].setAnimation(null);
+    focused_marker = this;
+    console.log(focused_marker);
+    markers[focused_marker].setAnimation(google.maps.Animation.BOUNCE);
+  }
+
+  // navigate on random list
+  function next_part() {
+      restaurant_parts[rnd_idx_list[curr_idx]].style.display="none";
+    
+      curr_idx++;
+      if (curr_idx == restaurant_parts.length) curr_idx = 0;
+      
+      restaurant_parts[rnd_idx_list[curr_idx]].style.display="inline";
+      
+      markers[focused_marker].setAnimation(null);
+      focused_marker = curr_idx;
+      markers[focused_marker].setAnimation(google.maps.Animation.BOUNCE);
   }
   
-  <% } else { %>
+  function prev_part() {
+      restaurant_parts[rnd_idx_list[curr_idx]].style.display="none";
     
-  <% } %>
+      curr_idx--;
+      if (curr_idx < 0) curr_idx = restaurant_parts.length - 1;
       
-} // end of initMap
-
-
-function func() { 
-  var i = this;
-   markers[i].setAnimation(google.maps.Animation.BOUNCE);
-}
-
-function func2() { 
-  var i = this;
-  markers[i].setAnimation(null);
-}
-
+      restaurant_parts[rnd_idx_list[curr_idx]].style.display="inline";
+      
+      markers[focused_marker].setAnimation(null);
+      focused_marker = curr_idx;
+      markers[focused_marker].setAnimation(google.maps.Animation.BOUNCE);
+  }
 
 </script>
 

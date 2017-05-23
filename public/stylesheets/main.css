@@ -3,7 +3,6 @@
    #ffc6aa
    #ff8c94
    #a8e6ce */
-   
 
 html {
     /* credit to uiGradients */
@@ -34,10 +33,13 @@ body {
 }
 
 #home_search {
-    margin-left: 3em;
-    /*margin-top: 50%;*/
-    margin-top: 17em;
+    padding-left: 3em;
+    padding-top: 17em;
     background-color: transparent;
+}
+
+#searchTextField {
+     min-width: 25em;
 }
 
 #home_search h1 {
@@ -171,13 +173,29 @@ body {
   and (max-device-width: 800px)
   and (orientation: portrait) {
     
-    #nav_header {
-      height: 5%;
+    #home_search {
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        padding-top: 3em;
+        background-color: transparent;
     }
     
-    #nav_header .search_form_line {
+    #home_search h1 {
+        font-size: 9.0vh;
+        color: #ffd3b5;
+    }
+    
+    #home_search #restaurant_name_line {
       width: 100%;
-      background-color: yellow;
+    }
+    
+    #home_search #searchTextField {
+     width: 100%;
+     min-width: 1em;
+    }
+    
+    #nav_header {
+      height: 5%;
     }
     
     #list_and_map {
@@ -194,7 +212,7 @@ body {
     width: 100%;
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
-    font-size: 5em;
+    font-size: 3em;
     }
     
     #result_part_display {
@@ -207,11 +225,16 @@ body {
     }
   
     .single_restaur {
-      height: 50em;
+      height: 20em;
       float: left;
       width: 100%;
       padding-left: 2%;
       padding-right: 2%;
+    }
+    
+    .restaur_img_block {
+    height: 65%;
+    overflow: hidden;
     }
     
 }
@@ -220,29 +243,64 @@ body {
   and (max-device-width: 800px)
   and (orientation: landscape) {
     
-    #map_half {
-      visibility: hidden;
+    #home_search {
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        padding-top: 1em;
+        background-color: transparent;
     }
     
+    #home_search h1 {
+        font-size: 15.0vh;
+        color: #ffd3b5;
+    }
+    
+    #home_search #searchTextField {
+     width: 100%;
+     min-width: 0em;
+    }
+    
+    #nav_header {
+      height: 15%;
+    }
+    
+    #list_and_map {
+      height: 85%;
+    }
+    
+    #map_half {
+      display: none;
+    }
+ 
     #result_list_display {
     float: left;
     height: 100%;
     width: 100%;
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
+    font-size: 1.5em;
+    }
+    
+    #result_part_display {
+    float: left;
+    height: 100%;
+    width: 100%;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    font-size: 1.5em;
     }
   
     .single_restaur {
-      height: 50em;
+      height: 20em;
       float: left;
       width: 50%;
       padding-left: 2%;
       padding-right: 2%;
     }
     
-    .navbar {
-      height: 3em;
-      font-size: 2em;
+    .restaur_img_block {
+    height: 65%;
+    overflow: hidden;
     }
     
 }
